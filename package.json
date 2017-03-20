@@ -14,6 +14,8 @@
   },
   "homepage": "https://github.com/markmhx/grunt-deploy-files#readme",
   "dependencies": {
+    "grunt-rsync": "^2.0.1",
+    "load-grunt-tasks": "^3.5.2",
     "path": "^0.12.7"
   }
 }
