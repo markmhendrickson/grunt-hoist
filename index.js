@@ -16,7 +16,7 @@ module.exports = function(grunt) {
    * @param {string} [destRel] - Path for destination of file or directory relative to deployment host directory. Defaults to same value as src.
    * @param {string} [args] – rsync arguments
    */
-  grunt.registerTask('deploy', 'Deploy file or directory (if it exists) to host directory', function(hostDir, srcRel, destRel, args) {
+  grunt.registerTask('deploy-files', 'Deploy file or directory (if it exists) to host directory', function(hostDir, srcRel, destRel, args) {
     var srcAbs = path.resolve(process.env.SYNC_SERVER_DIR, srcRel);
 
     if (!grunt.file.exists(srcAbs)) { return grunt.log.writeln('File or directory does not exist: %s', srcAbs); }
