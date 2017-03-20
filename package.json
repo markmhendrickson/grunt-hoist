@@ -1,0 +1,19 @@
+{
+  "name": "grunt-deploy-files",
+  "version": "1.0.0",
+  "description": "Grunt task to deploy files to remote host",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markmhx/grunt-deploy-files.git"
+  },
+  "author": "Mark McLeod Hendrickson <markmhendrickson@gmail.com> (http://markmhendrickson.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/markmhx/grunt-deploy-files/issues"
+  },
+  "homepage": "https://github.com/markmhx/grunt-deploy-files#readme",
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}
