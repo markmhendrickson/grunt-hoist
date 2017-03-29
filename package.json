@@ -5,6 +5,7 @@
   },
   "dependencies": {
     "grunt-rsync": "^2.0.1",
+    "grunt-ssh": "^0.12.9",
     "path": "^0.12.7"
   },
   "description": "Grunt task to deploy files to remote host",
@@ -15,5 +16,5 @@
     "type": "git",
     "url": "git+https://github.com/markmhx/grunt-deploy-files.git"
   },
-  "version": "1.0.3"
+  "version": "1.0.4"
 }

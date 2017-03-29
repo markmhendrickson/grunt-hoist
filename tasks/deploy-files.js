@@ -9,40 +9,36 @@ var fs = require('fs');
 var path = require('path');
 
 module.exports = function(grunt) {
+  grunt.loadNpmTasks('grunt-ssh');
   grunt.loadNpmTasks('grunt-rsync');
 
   /**
    * Deploy file or directory (if it exists) to host directory
-   * @param {string} srcRelPath - Path for source of file or directory relative to local repository directory
-   * @param {string} [destRelPath] - Path for destination of file or directory relative to deployment host directory. Defaults to same value as src.
+   * If file is package.json, run `npm install` remotely on host
    * @param {string} [args] – rsync arguments
    */
-  grunt.registerTask('deploy-files', 'Deploy file or directory (if it exists) to host directory', function(srcRelPath, destRelPath, args) {
-    if (!srcRelPath) { throw new Error('No srcRelPath parameter provided'); }
+  grunt.registerMultiTask('deploy-files', 'Deploy file or directory (if it exists) to host directory', function() {
+    var options = Object.assign({}, grunt.config.get('deploy-files').options, this.data);
 
-    var config = grunt.config.get('deployFiles');
-
-    if (!config) { throw new Error('No deployFiles configuration found'); }
-
-    var options = this.target && config[this.target] ? config[this.target].options : config.options;
-
+    if (!options.src) { throw new Error('No src configured'); }
     if (!options.destHost) { throw new Error('No destHost configured'); }
-    if (!options.destDir) { throw new Error('No destination directory path configured'); }
-    if (!options.srcDir) { throw new Error('No source directory path configured'); }
+    if (!options.destDir) { throw new Error('No destDir configured'); }
+    if (!options.srcDir) { throw new Error('No srcDir configured'); }
 
-    var srcPath = path.resolve(options.srcDir, srcRelPath);
+    // Resolve relative path to source to absolute
+    var srcPath = path.resolve(options.srcDir, options.src);
 
     if (!grunt.file.exists(srcPath)) { throw new Error(`File or directory does not exist: ${srcPath}`); }
 
     // Ensure deployment host directory exists and prepend custom arguments
-    args = args ? args : '';
+    var args = options.args ? options.args : '';
     args = `${args} --rsync-path="mkdir -p ${options.destDir} && rsync"`;
 
     // Use same path for destination as source if not declared
-    destRelPath = destRelPath ? destRelPath : srcRelPath;
+    var dest = options.dest ? options.dest : options.src;
 
     // Resolve relative path to dest to absolute
-    var destPath = path.resolve(options.destDir, destRelPath);
+    var destPath = path.resolve(options.destDir, dest);
 
     if (fs.lstatSync(srcPath).isDirectory()) {
       srcPath = srcPath + '/';
@@ -56,5 +52,13 @@ module.exports = function(grunt) {
     grunt.config.set('rsync.deployFiles.options.dest', destPath);
 
     grunt.task.run('rsync:deployFiles');
+
+    if (options.src === 'package.json') {
+      grunt.config.set('sshexec.deployFiles.options.agent', process.env.SSH_AUTH_SOCK);
+      grunt.config.set('sshexec.deployFiles.options.host', options.destHost);
+      grunt.config.set('sshexec.deployFiles.options.command', 'cd ' + options.destDir + ' && npm install');
+      
+      grunt.task.run('sshexec:deployFiles');
+    }
   });
 };
