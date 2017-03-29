@@ -45,7 +45,7 @@ module.exports = function(grunt) {
       destPath = destPath + '/';
     }
 
-    grunt.config.set('rsync.deployFiles.options.host', options.destHost);
+    grunt.config.set('rsync.deployFiles.options.host', options.destUser + '@' + options.destHost);
     grunt.config.set('rsync.deployFiles.options.recursive', true);
     grunt.config.set('rsync.deployFiles.options.args', [args]);
     grunt.config.set('rsync.deployFiles.options.src', srcPath);
@@ -53,12 +53,27 @@ module.exports = function(grunt) {
 
     grunt.task.run('rsync:deployFiles');
 
+    var commands = [];
+
     if (options.src === 'package.json') {
+      grunt.log.write('Preparing to execute "npm install --production" on host');
+      commands.push('cd ' + options.destDir + ' && npm install --production');
+    }
+
+    if (options.systemdService) {
+      grunt.log.write(`Preparing to restart or start systemd service "${options.systemdService}" on host`);
+      commands.push(`sudo systemctl restart ${options.systemdService} || sudo systemctl start ${options.systemdService}`);
+    }
+
+    if (commands.length) {
       grunt.config.set('sshexec.deployFiles.options.agent', process.env.SSH_AUTH_SOCK);
       grunt.config.set('sshexec.deployFiles.options.host', options.destHost);
-      grunt.config.set('sshexec.deployFiles.options.command', 'cd ' + options.destDir + ' && npm install');
-      
-      grunt.task.run('sshexec:deployFiles');
+      grunt.config.set('sshexec.deployFiles.options.username', options.destUser);
+
+      commands.forEach((command) => {
+        grunt.config.set('sshexec.deployFiles.command', command);
+        grunt.task.run('sshexec:deployFiles');
+      });
     }
   });
 };
