@@ -8,6 +8,12 @@ This repository contains the source code for a suite of Grunt tasks to deploy No
 
 ## Setup
 
+To include this module in your package, simply run:
+
+``` 
+npm install grunt-hoist --save-dev
+```
+
 #### Environment variables
 
 The following environment variables are managed by [Park Ranger](https://github.com/markmhx/park-ranger) and expected by tasks:
