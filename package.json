@@ -1,20 +1,23 @@
 {
   "author": "Mark McLeod Hendrickson <markmhendrickson@gmail.com> (http://markmhendrickson.com)",
   "bugs": {
-    "url": "https://github.com/markmhx/grunt-deploy-files/issues"
+    "url": "https://github.com/markmhx/grunt-hoist/issues"
   },
   "dependencies": {
     "grunt-rsync": "^2.0.1",
     "grunt-ssh": "^0.12.9",
     "path": "^0.12.7"
   },
-  "description": "Grunt task to deploy files to remote host",
-  "homepage": "https://github.com/markmhx/grunt-deploy-files#readme",
+  "description": "Suite of Grunt tasks to deploy Node.js apps to hosts and execute related remote procedures",
+  "homepage": "https://github.com/markmhx/grunt-hoist#readme",
   "license": "MIT",
-  "name": "grunt-deploy-files",
+  "name": "grunt-hoist",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/markmhx/grunt-deploy-files.git"
+    "url": "git+https://github.com/markmhx/grunt-hoist.git"
   },
-  "version": "1.0.5"
+  "scripts": {
+    "postinstall": "grunt hoist-add-scripts"
+  },
+  "version": "1.0.0"
 }
