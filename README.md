@@ -1,8 +1,8 @@
 # grunt-hoist
 
-[![Code Climate](https://codeclimate.com/github/markmhx/grunt-hoist/badges/gpa.svg)](https://codeclimate.com/github/neotoma/sync-server)
-[![Code Climate issues badge](https://codeclimate.com/github/markmhx/grunt-hoist/badges/issue_count.svg)](https://codeclimate.com/github/neotoma/sync-server/issues)
-[![David badge](https://david-dm.org/markmhx/grunt-hoist.svg)](https://david-dm.org/neotoma/sync-server)
+[![Code Climate](https://codeclimate.com/github/markmhx/grunt-hoist/badges/gpa.svg)](https://codeclimate.com/github/markmhx/grunt-hoist)
+[![Code Climate issues badge](https://codeclimate.com/github/markmhx/grunt-hoist/badges/issue_count.svg)](https://codeclimate.com/github/markmhx/grunt-hoist/issues)
+[![David badge](https://david-dm.org/markmhx/grunt-hoist.svg)](https://david-dm.org/markmhx/grunt-hoist)
 
 This repository contains the source code for a suite of Grunt tasks to deploy Node.js apps to hosts and execute related remote procedures.
 
