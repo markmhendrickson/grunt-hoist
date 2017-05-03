@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     }
 
     var dest = process.env.ENV_NAME ? `${src}-${process.env.ENV_NAME}` : src;
-    src = process.env.ENV_NAME ? `${src}-${process.env.ENV_NAME}-deploy` : '${src}-deploy';
+    src = process.env.ENV_NAME ? `${src}-${process.env.ENV_NAME}-deploy` : `${src}-deploy`;
 
     if (extension) {
       src = src + '.' + extension;
