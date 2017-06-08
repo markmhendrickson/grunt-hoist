@@ -7,7 +7,8 @@
 
 module.exports = function(grunt) {
   grunt.registerTask('hoist-deploy-app', 'Deploy app to host and execute remote procedures.', function() {
-    [ 'Gruntfile.js',
+    [ 'app',
+      'Gruntfile.js',
       'index.js',
       'package.json'
     ].forEach((filename, i) => {

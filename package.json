@@ -19,5 +19,5 @@
   "scripts": {
     "postinstall": "node scripts/add-scripts.js"
   },
-  "version": "1.0.3"
+  "version": "1.0.4"
 }
