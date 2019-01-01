@@ -4,7 +4,7 @@
     "url": "https://github.com/markmhx/grunt-hoist/issues"
   },
   "dependencies": {
-    "grunt-rsync": "^2.0.1",
+    "grunt-rsync": "^3.0.0",
     "grunt-ssh": "^0.12.9",
     "path": "^0.12.7"
   },
